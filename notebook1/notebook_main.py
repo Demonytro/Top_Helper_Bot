@@ -1,4 +1,4 @@
-from functions import parser_string, wrong_command
+from functions import parser_string, wrong_command, help_
 from decorator import input_error
 from classes import synk, save
 
@@ -24,4 +24,5 @@ def notebook_main():
 if __name__ == '__main__':
     synk()
     print('Welcome to NoteBook')
+    print(help_())
     notebook_main()
