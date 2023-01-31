@@ -7,7 +7,7 @@ from sys import argv
 
 def normalize(file_name):
     """Translate cyrillic symbols to latin"""
-    
+
     CYRILLIC_SYMBOLS = "абвгдеёжзийклмнопрстуфхцчшщъыьэюяєіїґ"
     TRANSLATION = (
         "a", "b", "v", "g", "d", "e", "e", "j", "z", "i", "j", "k", "l", "m", "n", "o", "p", "r", "s", "t", "u", "f",
@@ -30,7 +30,6 @@ def normalize(file_name):
     return clear_name
 
 
-
 def sort_files(my_path):
     duplicate_counter = 0
 
@@ -43,7 +42,7 @@ def sort_files(my_path):
     }
 
     '''Renaming files'''
-    for root, dirs, files in walk(my_path):        
+    for root, dirs, files in walk(my_path):
 
         for file in files:
             rename(path.join(root, file),
@@ -86,8 +85,7 @@ def sort_files(my_path):
             new_name = path.splitext(file)[0] + str(duplicate_counter) + path.splitext(file)[1]
             rename(file, new_name)
             move(new_name, cr_path)
-    
-    
+
     '''Statistic about used extensions'''
     print(f"Known extensions: {known_extensions}")
     if len(unknown_extensions) > 0:
@@ -124,7 +122,6 @@ def sort_files(my_path):
     all_extensions = known_extensions + unknown_extensions
     all_extensions_dict = {}
 
-
     for extension in all_extensions:
         counter = 0
         for file in filename:
@@ -138,11 +135,23 @@ def sort_files(my_path):
 
 
 def main():
-    # ------------------------------- Demonytro 1 while и выбор путь или выход --------------
-    try:
-        sort_files(argv[1])           # -------- Demonytro 2  есть смысл обернуть проверкой  
-    except IndexError:
-        print("Please provide a path to a folder to be sorted")
+    sorted_folders = []
+    while True:
+        user_input = input("Provide a path to a folder to be sorted: ")
+
+        if user_input.lower() == "exit":
+            print("Goodbye! Thanks for using our folder sorting app")
+            break
+
+        if not user_input in sorted_folders:
+            if path.isdir(user_input):
+                sorted_folders.append(user_input)
+                sort_files(user_input)
+                print(fr"Path: '{user_input}' was sorted. If you want to finish - type 'exit'")
+            else:
+                print("Your path is incorrect, please try again")
+        else:
+            print("This folder was already sorted, provide another path")
 
 
 if __name__ == '__main__':
