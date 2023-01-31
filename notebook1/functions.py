@@ -1,11 +1,11 @@
 from classes import Note, synk, save, load
 from decorator import input_error
-from difflib import SequenceMatcher
-
 
 """*****************основна логіка роботи та функції*****************"""
 
 """*******вітання та відповідь на помилкові команди********"""
+
+
 @input_error
 def hello(a):
     return 'How can I help you?'
@@ -22,6 +22,8 @@ def show_all(a):
 
 
 """*******парсер введеного тексту з обробкою********"""
+
+
 @input_error
 def parser_string(u_input):
     command, *args = u_input.split()
@@ -32,6 +34,7 @@ def parser_string(u_input):
     else:
         handler = OPTIONS.get(command.lower(), wrong_command)
     return handler, args
+
 
 @input_error
 def add_note(args):
@@ -44,6 +47,7 @@ def add_note(args):
         ex_note.add_note()
         save()
     return f'{ex_note.name.value} added'
+
 
 @input_error
 def change_note(args):
@@ -58,6 +62,7 @@ def change_note(args):
         save()
         return f'{ex_note.name.value} changed'
 
+
 @input_error
 def remove_note(args):
     df = load()
@@ -69,6 +74,7 @@ def remove_note(args):
         df = ex_note.remove()
         save()
         return f'{ex_note.name.value} removed'
+
 
 @input_error
 def add_tags(args):
@@ -101,19 +107,21 @@ def remove_tags(args):
 def filter(args):
     df = load()
     tag = args[0]
-    #df_filtered=df[df.tags.str.contains(tag, na=False).any()]
-    df_filtered = df[df.tags.str.contains('|'.join(tag),na=False)]
+    # df_filtered=df[df.tags.str.contains(tag, na=False).any()]
+    df_filtered = df[df.tags.str.contains('|'.join(tag), na=False)]
     print(df_filtered)
+
 
 @input_error
 def sort(a):
     df = load()
     flag = int(input('Input 1 for sort by date of creation or 2 - by date of change '))
     if flag == 1:
-        df_sorted=df.sort_values(by='created', ascending=False)
+        df_sorted = df.sort_values(by='created', ascending=False)
     else:
-        df_sorted = df.sort_values(by='changed',ascending=False)
+        df_sorted = df.sort_values(by='changed', ascending=False)
     print(df_sorted)
+
 
 OPTIONS = {"hello": hello,
            "add": add_note,
@@ -124,8 +132,8 @@ OPTIONS = {"hello": hello,
            "tag_add": add_tags,
            'tag_delete': remove_tags,
            'tag_remove': remove_tags,
-           'filter':filter,
-           'sort':sort,
+           'filter': filter,
+           'sort': sort,
            'good bye': exit,
            'close': exit,
            'exit': exit,
