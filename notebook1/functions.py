@@ -1,6 +1,8 @@
-from classes import Note, df, synk, create_df
+from classes import Note, synk, save, load
 from decorator import input_error
-from classes import save
+from difflib import SequenceMatcher
+
+
 """*****************основна логіка роботи та функції*****************"""
 
 """*******вітання та відповідь на помилкові команди********"""
@@ -15,9 +17,8 @@ def wrong_command():
 
 def show_all(a):
     synk()
-    df = create_df()
-    result = df
-    return result
+    df = load()
+    return df
 
 
 """*******парсер введеного тексту з обробкою********"""
@@ -34,7 +35,7 @@ def parser_string(u_input):
 
 @input_error
 def add_note(args):
-    df = create_df()
+    df = load()
     name = str(args[0])
     if df['name'].isin([name]).any():
         raise FileExistsError
@@ -47,7 +48,7 @@ def add_note(args):
 @input_error
 def change_note(args):
     synk()
-    df = create_df()
+    df = load()
     name = str(args[0])
     if df['name'].isin([name]).any() == False:
         raise FileNotFoundError
@@ -59,8 +60,7 @@ def change_note(args):
 
 @input_error
 def remove_note(args):
-    synk()
-    df = create_df()
+    df = load()
     name = args[0]
     if df['name'].isin([name]).any() == False:
         raise FileNotFoundError
@@ -72,8 +72,7 @@ def remove_note(args):
 
 @input_error
 def add_tags(args):
-    synk()
-    df = create_df()
+    df = load()
     name = args[0]
     if df['name'].isin([name]).any():
         ex_note = Note(name)
@@ -87,7 +86,7 @@ def add_tags(args):
 
 @input_error
 def remove_tags(args):
-    df = create_df()
+    df = load()
     name = args[0]
     if df['name'].isin([name]).any():
         ex_note = Note(name)
@@ -100,7 +99,7 @@ def remove_tags(args):
 
 @input_error
 def filter(args):
-    df = create_df()
+    df = load()
     tag = args[0]
     #df_filtered=df[df.tags.str.contains(tag, na=False).any()]
     df_filtered = df[df.tags.str.contains('|'.join(tag),na=False)]
@@ -108,7 +107,7 @@ def filter(args):
 
 @input_error
 def sort(a):
-    df = create_df()
+    df = load()
     flag = int(input('Input 1 for sort by date of creation or 2 - by date of change '))
     if flag == 1:
         df_sorted=df.sort_values(by='created', ascending=False)

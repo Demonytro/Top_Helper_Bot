@@ -4,7 +4,7 @@ from classes import synk, save
 
 
 @input_error
-def main():
+def notebook_main():
     try:
         while True:
             u_input = input('Enter command ')
@@ -24,4 +24,4 @@ def main():
 if __name__ == '__main__':
     synk()
     print('Welcome to NoteBook')
-    main()
+    notebook_main()

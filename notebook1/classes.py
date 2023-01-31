@@ -3,33 +3,22 @@ import os
 import subprocess
 from pathlib import Path
 import pandas as pd
+from difflib import SequenceMatcher
 
-
+""""**********запис і читання з файлу"""
 def save():
     df.to_csv('df.csv', index=False, sep=';')
-def create_df():
+def load():
     try:
         df = pd.read_csv('df.csv', delimiter=';')
     except FileNotFoundError:
-        df = pd.DataFrame(columns=['tags', 'name', 'created', 'changed', 'note'])
+        df = pd.DataFrame(columns=['tags', 'name', 'created', 'changed'])
     if os.path.exists('notes')==False:
         os.mkdir('notes')
     return df
 
+df = load()
 
-df = create_df()
-
-class Notebook(pd.DataFrame):
-    def add_note(self, note):
-        self.loc[len(self), ['name', 'created', 'note']] = [note.name.value, note.created, note]
-        save()
-    def change_note(self, note,changed=datetime.datetime.now().strftime('%m/%d/%Y, %H:%M')):
-        self.loc[df['name'] == note.name.value, ['changed']] = changed
-        save()
-
-    def remove_note(self, note):
-        self = self.loc[self['name'] != note.name.value]
-        save()
 
 class Field:
     def __init__(self, value):
