@@ -22,6 +22,42 @@ def show_all(a):
     df = load()
     return df
 
+def help_():
+    a = ["add name -   creates text file named 'name'\n",
+    "change name - opens textfile named 'name'\n",
+    "delete name -   delete textfile named 'name'\n",
+    "remove name - delete textfile named 'name'\n",
+    "show all -   print a table contains names of all notes, tag, date of creation and change\n",
+    "tag_add name - added tags for note 'name' in the table\n",
+    "tag_delete name -   removes tags for note 'name' in the table\n",
+    "filter tag - print a table contains information about notes with tag 'tag'\n",
+    "sort -   sorts table by date of creation or date of change\n",
+    ". - exit from script\n",
+    "close -   exit from script\n",
+    "good bye - exit from script\n",
+    "exit - exit from script\n",
+    'help - to see this message again']
+    r = ''.join(a)
+    return r
+
+def help(args):
+    a = ["add name -   creates text file named 'name'\n",
+    "change name - opens textfile named 'name'\n",
+    "delete name -   delete textfile named 'name'\n",
+    "remove name - delete textfile named 'name'\n",
+    "show all -   print a table contains names of all notes, tag, date of creation and change\n",
+    "tag_add name - added tags for note 'name' in the table\n",
+    "tag_delete name -   removes tags for note 'name' in the table\n",
+    "filter tag - print a table contains information about notes with tag 'tag'\n",
+    "sort -   sorts table by date of creation or date of change\n",
+    ". - exit from script\n",
+    "close -   exit from script\n",
+    "good bye - exit from script\n",
+    "exit - exit from script\n",
+    'help - to see this message again']
+    r = ''.join(a)
+    return r
+
 
 """*******парсер введеного тексту з обробкою********"""
 
@@ -139,5 +175,6 @@ OPTIONS = {"hello": hello,
            'good bye': exit,
            'close': exit,
            'exit': exit,
-           '.': exit
+           '.': exit,
+           'help': help
            }

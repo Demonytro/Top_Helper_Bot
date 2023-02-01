@@ -1,3 +1,4 @@
+
 from .functions import parser_string, wrong_command
 from .decorator import input_error
 from .classes import synk, save
@@ -23,6 +24,7 @@ def notebook_main():
 def run():
     synk()
     print('Welcome to NoteBook')
+    print(help_())
     notebook_main()
 
 

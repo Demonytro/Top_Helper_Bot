@@ -3,7 +3,7 @@
 NoteBook is a Python script for making text notes 
 ## Reqirements
 
-pip install requirements.txt
+pip install -r requirements.txt
 
 ## Usage
 
