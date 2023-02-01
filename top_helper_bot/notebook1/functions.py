@@ -1,5 +1,7 @@
-from classes import Note, synk, save, load
-from decorator import input_error
+
+from .classes import Note, df, synk, create_df
+from .decorator import input_error
+from .classes import save
 
 """*****************основна логіка роботи та функції*****************"""
 
