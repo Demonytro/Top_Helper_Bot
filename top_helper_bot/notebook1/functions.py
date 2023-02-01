@@ -1,9 +1,13 @@
+
 from .classes import Note, df, synk, create_df
 from .decorator import input_error
 from .classes import save
+
 """*****************основна логіка роботи та функції*****************"""
 
 """*******вітання та відповідь на помилкові команди********"""
+
+
 @input_error
 def hello(a):
     return 'How can I help you?'
@@ -15,12 +19,49 @@ def wrong_command():
 
 def show_all(a):
     synk()
-    df = create_df()
-    result = df
-    return result
+    df = load()
+    return df
+
+def help_():
+    a = ["add name -   creates text file named 'name'\n",
+    "change name - opens textfile named 'name'\n",
+    "delete name -   delete textfile named 'name'\n",
+    "remove name - delete textfile named 'name'\n",
+    "show all -   print a table contains names of all notes, tag, date of creation and change\n",
+    "tag_add name - added tags for note 'name' in the table\n",
+    "tag_delete name -   removes tags for note 'name' in the table\n",
+    "filter tag - print a table contains information about notes with tag 'tag'\n",
+    "sort -   sorts table by date of creation or date of change\n",
+    ". - exit from script\n",
+    "close -   exit from script\n",
+    "good bye - exit from script\n",
+    "exit - exit from script\n",
+    'help - to see this message again']
+    r = ''.join(a)
+    return r
+
+def help(args):
+    a = ["add name -   creates text file named 'name'\n",
+    "change name - opens textfile named 'name'\n",
+    "delete name -   delete textfile named 'name'\n",
+    "remove name - delete textfile named 'name'\n",
+    "show all -   print a table contains names of all notes, tag, date of creation and change\n",
+    "tag_add name - added tags for note 'name' in the table\n",
+    "tag_delete name -   removes tags for note 'name' in the table\n",
+    "filter tag - print a table contains information about notes with tag 'tag'\n",
+    "sort -   sorts table by date of creation or date of change\n",
+    ". - exit from script\n",
+    "close -   exit from script\n",
+    "good bye - exit from script\n",
+    "exit - exit from script\n",
+    'help - to see this message again']
+    r = ''.join(a)
+    return r
 
 
 """*******парсер введеного тексту з обробкою********"""
+
+
 @input_error
 def parser_string(u_input):
     command, *args = u_input.split()
@@ -32,9 +73,10 @@ def parser_string(u_input):
         handler = OPTIONS.get(command.lower(), wrong_command)
     return handler, args
 
+
 @input_error
 def add_note(args):
-    df = create_df()
+    df = load()
     name = str(args[0])
     if df['name'].isin([name]).any():
         raise FileExistsError
@@ -44,10 +86,11 @@ def add_note(args):
         save()
     return f'{ex_note.name.value} added'
 
+
 @input_error
 def change_note(args):
     synk()
-    df = create_df()
+    df = load()
     name = str(args[0])
     if df['name'].isin([name]).any() == False:
         raise FileNotFoundError
@@ -57,10 +100,10 @@ def change_note(args):
         save()
         return f'{ex_note.name.value} changed'
 
+
 @input_error
 def remove_note(args):
-    synk()
-    df = create_df()
+    df = load()
     name = args[0]
     if df['name'].isin([name]).any() == False:
         raise FileNotFoundError
@@ -70,10 +113,10 @@ def remove_note(args):
         save()
         return f'{ex_note.name.value} removed'
 
+
 @input_error
 def add_tags(args):
-    synk()
-    df = create_df()
+    df = load()
     name = args[0]
     if df['name'].isin([name]).any():
         ex_note = Note(name)
@@ -87,7 +130,7 @@ def add_tags(args):
 
 @input_error
 def remove_tags(args):
-    df = create_df()
+    df = load()
     name = args[0]
     if df['name'].isin([name]).any():
         ex_note = Note(name)
@@ -100,21 +143,23 @@ def remove_tags(args):
 
 @input_error
 def filter(args):
-    df = create_df()
+    df = load()
     tag = args[0]
-    #df_filtered=df[df.tags.str.contains(tag, na=False).any()]
-    df_filtered = df[df.tags.str.contains('|'.join(tag),na=False)]
+    # df_filtered=df[df.tags.str.contains(tag, na=False).any()]
+    df_filtered = df[df.tags.str.contains('|'.join(tag), na=False)]
     print(df_filtered)
+
 
 @input_error
 def sort(a):
-    df = create_df()
+    df = load()
     flag = int(input('Input 1 for sort by date of creation or 2 - by date of change '))
     if flag == 1:
-        df_sorted=df.sort_values(by='created', ascending=False)
+        df_sorted = df.sort_values(by='created', ascending=False)
     else:
-        df_sorted = df.sort_values(by='changed',ascending=False)
+        df_sorted = df.sort_values(by='changed', ascending=False)
     print(df_sorted)
+
 
 OPTIONS = {"hello": hello,
            "add": add_note,
@@ -125,10 +170,11 @@ OPTIONS = {"hello": hello,
            "tag_add": add_tags,
            'tag_delete': remove_tags,
            'tag_remove': remove_tags,
-           'filter':filter,
-           'sort':sort,
+           'filter': filter,
+           'sort': sort,
            'good bye': exit,
            'close': exit,
            'exit': exit,
-           '.': exit
+           '.': exit,
+           'help': help
            }

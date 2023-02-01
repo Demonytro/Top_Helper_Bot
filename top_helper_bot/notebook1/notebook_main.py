@@ -1,10 +1,11 @@
+
 from .functions import parser_string, wrong_command
 from .decorator import input_error
 from .classes import synk, save
 
 
 @input_error
-def main():
+def notebook_main():
     try:
         while True:
             u_input = input('Enter command ')     # ---------   Добавить образцы команд   -------------
@@ -23,7 +24,10 @@ def main():
 def run():
     synk()
     print('Welcome to NoteBook')
-    main()
+    print(help_())
+    notebook_main()
+
 
 if __name__ == '__main__':
     run()
+

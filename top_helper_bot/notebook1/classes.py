@@ -125,13 +125,4 @@ def synk():
     df = df.loc[df['name'].isin(names)==True]
     save()
 
-
-
-synk()   # ---------------  ??? обязательно сразу синхронизировать
-
-
-def main():
-    pass
-
-if __name__ == '__main__':
-    main()
+synk()
