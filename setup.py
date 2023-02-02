@@ -5,10 +5,10 @@ with open('README.md','r', encoding="utf-8") as readme:
 
 setup(
     name = 'Top-Helper-Bot',
-    version = '1.0.9',
+    version = '1.1.4',
     description = 'Project "Personal Assistant" with a command line interface',
     url = 'https://github.com/Demonytro/Top-Helper-Bot.git',
-    author = 'QUATTRO Team',
+    author = 'QUATTRO Team (Maria Savchuk, Maksym Yurkevych, Sviatoslav Butenko, Dmytro Oseledko)',
     long_description = long_description,
     classifiers = [
         "Programming Language :: Python :: 3",

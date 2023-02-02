@@ -1,5 +1,5 @@
 
-from .functions import parser_string, wrong_command
+from .functions import parser_string, wrong_command, help_
 from .decorator import input_error
 from .classes import synk, save
 

@@ -1,3 +1,2 @@
 dist
-notes
 top_helper_bot

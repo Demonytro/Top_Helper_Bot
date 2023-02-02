@@ -137,19 +137,6 @@ def sort_files(my_path):
         print(f"{k} : {v} item(s)")
 
 
-# def main():
-#     # ------------------------------- Demonytro 1 while и выбор путь или выход --------------
-#     try:
-#         file_path = input("Input folder path >>> ")
-#         sort_files(file_path)           # -------- Demonytro 2  есть смысл обернуть проверкой  
-#     except IndexError:
-#         print("Please provide a path to a folder to be sorted")
-
-
-# if __name__ == '__main__':
-#     main()
-
-
 def main():
     sorted_folders = []
     while True:

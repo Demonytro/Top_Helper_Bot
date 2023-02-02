@@ -1,5 +1,5 @@
 
-from .classes import Note, df, synk, create_df
+from .classes import Note, df, synk, create_df as load
 from .decorator import input_error
 from .classes import save
 

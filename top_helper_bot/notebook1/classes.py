@@ -49,7 +49,7 @@ class Name(Field):
     @Field.value.setter
     def value(self, value):
         try:
-            fle = Path(f'.//notes//{value}.txt')
+            fle = Path(f'./notes/{value}.txt')    #   .notes.{value}
             fle.touch(exist_ok=False)
             self.value = str(value)
         except FileExistsError:
@@ -85,29 +85,29 @@ class Note():
 
     def add_note(self):
         try:
-            subprocess.call(['open', '-a', 'TextEdit', f'.//notes//{self.name.value}.txt'])
+            subprocess.call(['open', '-a', 'TextEdit', f'./notes/{self.name.value}.txt'])
             df.loc[len(df), ['name', 'created']] = [self.name.value, self.created]
         except:
             try:
-                subprocess.call(['notepad', f'.//notes//{self.name.value}.txt'])
+                subprocess.call(['notepad', f'./notes/{self.name.value}.txt'])
                 df.loc[len(df), ['name', 'created']] = [self.name.value, self.created]
             except FileNotFoundError:
                 print("Text editor not found")
 
     def change_note(self, changed=datetime.datetime.now().strftime('%m/%d/%Y, %H:%M')):
         try:
-            subprocess.call(['open', '-a', 'TextEdit', f'.//notes//{self.name.value}.txt'])
+            subprocess.call(['open', '-a', 'TextEdit', f'./notes/{self.name.value}.txt'])
             df.loc[df['name'] == self.name.value, ['changed']] = changed
         except:
             try:
-                subprocess.call(['notepad', f'.//notes//{self.name.value}.txt'])
+                subprocess.call(['notepad', f'./notes/{self.name.value}.txt'])
                 df.loc[df['name'] == self.name.value, ['changed']] = changed
             except FileNotFoundError:
                 print("Text editor not found")
 
     def remove(self):
         global df
-        os.remove(f'.//notes//{self.name.value}.txt')
+        os.remove(f'./notes/{self.name.value}.txt')
         df = df.loc[df['name'] != self.name.value]
         return df
 
