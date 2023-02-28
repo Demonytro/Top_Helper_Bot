@@ -3,6 +3,21 @@ from datetime import datetime
 from difflib import SequenceMatcher
 import pickle
 import re
+from abc import ABCMeta, abstractmethod
+
+
+class OutputClass(metaclass=ABCMeta):
+    @abstractmethod
+    def show_one_record(self):
+        pass
+
+    @abstractmethod
+    def show_all_records(self):
+        pass
+
+    @abstractmethod
+    def iterator(self):
+        pass
 
 
 def error_handler(func):
@@ -183,7 +198,7 @@ class Record:
         return f"Number {phone} not found"
 
 
-class AddressBook(UserDict):
+class AddressBook(OutputClass, UserDict):
     """Class for creating address book"""
 
     def open_file(self):
@@ -241,7 +256,6 @@ class AddressBook(UserDict):
 
 
 ADDRESSBOOK = AddressBook()
-
 
 HELP_INSTRUCTIONS = """This contact bot save your contacts 
     Global commands:
@@ -476,5 +490,4 @@ def main():
 
 
 if __name__ == '__main__':
-
     main()
