@@ -4,6 +4,16 @@ import subprocess
 from pathlib import Path
 import pandas as pd
 
+from abc import ABCMeta, abstractmethod
+class ClassSaveLoad(metaclass=ABCMeta):
+    @abstractmethod
+    def save(self):
+        pass
+
+    @abstractmethod
+    def create_df(self):
+        pass
+
 
 def save():
     df.to_csv('df.csv', index=False, sep=';')
@@ -19,7 +29,7 @@ def create_df():
 
 df = create_df()
 
-class Notebook(pd.DataFrame):
+class Notebook(pd.DataFrame, ClassSaveLoad):
     def add_note(self, note):
         self.loc[len(self), ['name', 'created', 'note']] = [note.name.value, note.created, note]
         save()
@@ -30,6 +40,20 @@ class Notebook(pd.DataFrame):
     def remove_note(self, note):
         self = self.loc[self['name'] != note.name.value]
         save()
+
+    def save():
+        df.to_csv('df.csv', index=False, sep=';')
+
+    def create_df():
+        try:
+            df = pd.read_csv('df.csv', delimiter=';')
+        except FileNotFoundError:
+            df = pd.DataFrame(columns=['tags', 'name', 'created', 'changed', 'note'])
+        if os.path.exists('notes') == False:
+            os.mkdir('notes')
+        return df
+
+    df = create_df()
 
 class Field:
     def __init__(self, value):

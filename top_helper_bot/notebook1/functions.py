@@ -3,9 +3,12 @@ from .classes import Note, df, synk, create_df as load
 from .decorator import input_error
 from .classes import save
 
+
 """*****************основна логіка роботи та функції*****************"""
 
 """*******вітання та відповідь на помилкові команди********"""
+
+
 
 
 @input_error

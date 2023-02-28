@@ -1,7 +1,7 @@
 
 from .functions import parser_string, wrong_command, help_
 from .decorator import input_error
-from .classes import synk, save
+from .classes import Notebook #synk, save
 
 
 @input_error
@@ -19,10 +19,10 @@ def notebook_main():
                 result = handler(*args)
                 print(result)
     finally:
-        save()
+        Notebook.save()
 
 def run():
-    synk()
+    Notebook.synk()
     print('Welcome to NoteBook')
     print(help_())
     notebook_main()
