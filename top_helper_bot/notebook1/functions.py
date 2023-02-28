@@ -1,12 +1,12 @@
 
-from .classes import Note, df, synk, create_df as load
+from .classes import Note, Notebook, synk #create_df as load
 from .decorator import input_error
-from .classes import save
+# from .classes import save
 
 
 """*****************основна логіка роботи та функції*****************"""
 
-"""*******вітання та відповідь на помилкові команди********"""
+"""*******вітання та відповідь на помилкові кома#нди********"""
 
 
 
@@ -22,7 +22,7 @@ def wrong_command():
 
 def show_all(a):
     synk()
-    df = load()
+    df = Notebook.create_df()
     return df
 
 def help_():
@@ -79,53 +79,53 @@ def parser_string(u_input):
 
 @input_error
 def add_note(args):
-    df = load()
+    df = Notebook.create_df()
     name = str(args[0])
     if df['name'].isin([name]).any():
         raise FileExistsError
     else:
         ex_note = Note(name)
         ex_note.add_note()
-        save()
+        Notebook.save()
     return f'{ex_note.name.value} added'
 
 
 @input_error
 def change_note(args):
     synk()
-    df = load()
+    df = Notebook.create_df()
     name = str(args[0])
     if df['name'].isin([name]).any() == False:
         raise FileNotFoundError
     else:
         ex_note = Note(name)
         ex_note.change_note()
-        save()
+        Notebook.save()
         return f'{ex_note.name.value} changed'
 
 
 @input_error
 def remove_note(args):
-    df = load()
+    df = Notebook.create_df()
     name = args[0]
     if df['name'].isin([name]).any() == False:
         raise FileNotFoundError
     else:
         ex_note = Note(name)
         df = ex_note.remove()
-        save()
+        Notebook.save()
         return f'{ex_note.name.value} removed'
 
 
 @input_error
 def add_tags(args):
-    df = load()
+    df = Notebook.create_df()
     name = args[0]
     if df['name'].isin([name]).any():
         ex_note = Note(name)
         tags = input('Enter tags ')
         ex_note.add_tags(tags)
-        save()
+        Notebook.save()
     else:
         raise FileNotFoundError
     return f'added tags to {ex_note.name.value} '
@@ -133,12 +133,12 @@ def add_tags(args):
 
 @input_error
 def remove_tags(args):
-    df = load()
+    df = Notebook.create_df()
     name = args[0]
     if df['name'].isin([name]).any():
         ex_note = Note(name)
         ex_note.delete_tags()
-        save()
+        Notebook.save()
     else:
         raise FileNotFoundError
     return f'removed tags to {ex_note.name.value} '
@@ -146,7 +146,7 @@ def remove_tags(args):
 
 @input_error
 def filter(args):
-    df = load()
+    df = Notebook.create_df()
     tag = args[0]
     # df_filtered=df[df.tags.str.contains(tag, na=False).any()]
     df_filtered = df[df.tags.str.contains('|'.join(tag), na=False)]
@@ -155,7 +155,7 @@ def filter(args):
 
 @input_error
 def sort(a):
-    df = load()
+    df = Notebook.create_df()
     flag = int(input('Input 1 for sort by date of creation or 2 - by date of change '))
     if flag == 1:
         df_sorted = df.sort_values(by='created', ascending=False)
